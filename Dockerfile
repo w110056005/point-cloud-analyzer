@@ -5,13 +5,13 @@ WORKDIR /app
 COPY *.sln .
 
 # 目標路徑資料夾要與來源路徑資料夾名稱相同(因 sln 已儲存專案路徑)
-COPY point-cloud-analyzer-web/*.csproj ./point-cloud-analyzer-web/
+COPY src/point-cloud-analyzer-web/*.csproj ./src/point-cloud-analyzer-web/
 
 # nuget restore
 RUN dotnet restore
 
 # 複製其他檔案
-COPY point-cloud-analyzer-web/. ./point-cloud-analyzer-web/
+COPY src/point-cloud-analyzer-web/. ./src/point-cloud-analyzer-web/
 WORKDIR /app/point-cloud-analyzer-web
 
 # 使用 Release 建置專案並輸出至 out
