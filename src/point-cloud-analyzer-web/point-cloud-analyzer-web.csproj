@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>point_cloud_analyzer_web</RootNamespace>
-    <AssemblyName>-</AssemblyName>
+    <AssemblyName>point-cloud-analyzer-web</AssemblyName>
   </PropertyGroup>
 
 </Project>
