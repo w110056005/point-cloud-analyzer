@@ -67,7 +67,7 @@ namespace point_cloud_analyzer_web.Controllers
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
-            System.IO.File.WriteAllText(output + "\\..\\" + fileName + ".html", text);
+            System.IO.File.WriteAllText(Path.Combine(output, fileName)  + ".html", text);
 
             System.IO.File.Delete(upload);
 
