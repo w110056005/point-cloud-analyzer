@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
 # 複製 sln csproj and restore nuget
@@ -16,7 +17,8 @@ WORKDIR /app/src/point-cloud-analyzer-web
 
 # 使用 Release 建置專案並輸出至 out
 RUN dotnet publish -c Release -o out
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+# FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 
 # 將產出物複製至 app 下
