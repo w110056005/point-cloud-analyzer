@@ -39,7 +39,7 @@ namespace point_cloud_analyzer_web.Controllers
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var output = Path.Combine(root, "wwwroot", "output", fileName);
+            var output = Path.Combine(root, "wwwroot", "output");
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
             Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output"));
@@ -63,7 +63,7 @@ namespace point_cloud_analyzer_web.Controllers
             //proc.Start();
             //proc.WaitForExit();
 
-            Exec($"{Path.Combine(root, "PotreeConverter", "PotreeConverter.exe")}  -o {output} --output-format LAZ");
+            Exec($"PotreeConverter/PotreeConverter.exe -o ../wwwroot/output/{fileName} --output-format LAZ");
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
