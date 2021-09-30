@@ -39,7 +39,7 @@ namespace point_cloud_analyzer_web.Controllers
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var output = "D:\\\\code\\potree\\output\\" + fileName;
+            var output = "wwwroot\\output\\" + fileName;
 
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
             {
