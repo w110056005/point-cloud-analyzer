@@ -39,7 +39,7 @@ namespace point_cloud_analyzer_web.Controllers
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var output = "wwwroot\\output\\" + fileName;
+            var output = Path.Combine(root, "wwwroot", "output", fileName);
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
             Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output"));
@@ -48,20 +48,22 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
-                    Arguments = upload + " -o " + output + " --output-format LAZ",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                },
-            };
+            //var proc = new Process
+            //{
+            //    StartInfo = new ProcessStartInfo
+            //    {
+            //        FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
+            //        Arguments = upload + " -o " + output + " --output-format LAZ",
+            //        UseShellExecute = false,
+            //        RedirectStandardOutput = true,
+            //        CreateNoWindow = true
+            //    },
+            //};
 
-            proc.Start();
-            proc.WaitForExit();
+            //proc.Start();
+            //proc.WaitForExit();
+
+            Exec($"{Path.Combine(root, "PotreeConverter", "PotreeConverter.exe")}  -o {output} --output-format LAZ");
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
@@ -71,6 +73,27 @@ namespace point_cloud_analyzer_web.Controllers
 
             var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
+        }
+
+        public static void Exec(string cmd)
+        {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            using var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{escapedArgs}\""
+                }
+            };
+
+            process.Start();
+            process.WaitForExit();
         }
     }
 }
