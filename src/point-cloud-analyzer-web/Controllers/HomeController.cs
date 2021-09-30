@@ -48,22 +48,22 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            //var proc = new Process
-            //{
-            //    StartInfo = new ProcessStartInfo
-            //    {
-            //        FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
-            //        Arguments = upload + " -o " + output + " --output-format LAZ",
-            //        UseShellExecute = false,
-            //        RedirectStandardOutput = true,
-            //        CreateNoWindow = true
-            //    },
-            //};
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
+                    Arguments = upload + " -o " + output + " --output-format LAZ",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                },
+            };
 
-            //proc.Start();
-            //proc.WaitForExit();
+            proc.Start();
+            proc.WaitForExit();
 
-            Exec($"PotreeConverter/PotreeConverter.exe ../upload/{file.FileName} -o ../wwwroot/output/{fileName} --output-format LAZ");
+            // Exec($"PotreeConverter/PotreeConverter.exe ../upload/{file.FileName} -o ../wwwroot/output/{fileName} --output-format LAZ");
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
