@@ -66,7 +66,10 @@ namespace point_cloud_analyzer_web
                 .ExceptWhen(ctx=>ctx.Connection.RemoteIpAddress.ToString().StartsWith("140"))
             );
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                ServeUnknownFileTypes = true
+            });
 
             app.UseRouting();
 

@@ -11,7 +11,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\output\" />
+    <Folder Include="wwwroot\build\potree\lazylibs\geopackage\" />
+    <Folder Include="wwwroot\build\potree\lazylibs\sql.js\" />
+    <Folder Include="wwwroot\build\potree\resources\icons\matcap\" />
+    <Folder Include="wwwroot\build\potree\resources\images\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\dev\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\de\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\en-US\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\en\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\es\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\fr\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\jp\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\se\" />
+    <Folder Include="wwwroot\build\potree\resources\lang\zh\" />
+    <Folder Include="wwwroot\build\potree\resources\models\" />
+    <Folder Include="wwwroot\build\potree\resources\shapefiles\" />
+    <Folder Include="wwwroot\build\potree\resources\textures\matcap\" />
+    <Folder Include="wwwroot\build\potree\resources\textures\navigation\" />
+    <Folder Include="wwwroot\build\potree\resources\textures\skybox2\" />
+    <Folder Include="wwwroot\build\potree\resources\textures\skybox\" />
+    <Folder Include="wwwroot\build\potree\workers\2.0\" />
+    <Folder Include="wwwroot\build\shaders\" />
   </ItemGroup>
 
 </Project>
