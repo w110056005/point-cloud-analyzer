@@ -23,4 +23,4 @@ WORKDIR /app
 
 COPY --from=build /app/src/point-cloud-analyzer-web/out ./
 
-ENTRYPOINT ["dotnet", "point-cloud-analyzer-web.dll"]
+ENTRYPOINT ["dotnet", "point-cloud-analyzer-web.dll", "--environment=Development"]
