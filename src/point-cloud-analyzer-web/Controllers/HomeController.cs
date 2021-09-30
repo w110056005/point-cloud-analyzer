@@ -42,6 +42,7 @@ namespace point_cloud_analyzer_web.Controllers
             var output = "wwwroot\\output\\" + fileName;
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
+            Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
             {
                 file.CopyTo(fileStream);
