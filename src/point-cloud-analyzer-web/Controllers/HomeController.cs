@@ -67,7 +67,7 @@ namespace point_cloud_analyzer_web.Controllers
 
             System.IO.File.Delete(upload);
 
-            var redirect = "http:\\\\localhost:1234\\output\\" + fileName + ".html";
+            var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
         }
     }
