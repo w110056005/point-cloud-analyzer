@@ -41,6 +41,7 @@ namespace point_cloud_analyzer_web.Controllers
             var fileName = file.FileName.Split('.')[0];
             var output = "wwwroot\\output\\" + fileName;
 
+            Directory.CreateDirectory(Path.Combine(root, "upload"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
             {
                 file.CopyTo(fileStream);
