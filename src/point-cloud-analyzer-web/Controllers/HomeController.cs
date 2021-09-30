@@ -69,7 +69,7 @@ namespace point_cloud_analyzer_web.Controllers
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
             System.IO.File.WriteAllText(Path.Combine(output, fileName)  + ".html", text);
 
-            System.IO.File.Delete(upload);
+            //System.IO.File.Delete(upload);
 
             var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
