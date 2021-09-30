@@ -63,7 +63,7 @@ namespace point_cloud_analyzer_web.Controllers
             //proc.Start();
             //proc.WaitForExit();
 
-            Exec($"PotreeConverter/PotreeConverter.exe -o ../wwwroot/output/{fileName} --output-format LAZ");
+            Exec($"PotreeConverter/PotreeConverter.exe ../upload/{file.FileName} -o ../wwwroot/output/{fileName} --output-format LAZ");
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
