@@ -52,8 +52,9 @@ namespace point_cloud_analyzer_web.Controllers
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = $"{root}/PotreeConverter/PotreeConverter.exe",
-                    Arguments = $"{root}/upload/{file.FileName}" + " -o " + $"{root}/wwroot/output/{fileName}" + " --output-format LAZ",
+                    FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
+                    Arguments = Path.Combine(root, "upload", file.FileName) + " -o " 
+                        + Path.Combine(root, "wwwroot", "output", fileName) + " --output-format LAZ",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
