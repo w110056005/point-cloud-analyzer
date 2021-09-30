@@ -53,7 +53,7 @@ namespace point_cloud_analyzer_web.Controllers
                 {
                     FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
                     Arguments = upload + " -o " + output + " --output-format LAZ",
-                    UseShellExecute = true,
+                    UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
                 },
