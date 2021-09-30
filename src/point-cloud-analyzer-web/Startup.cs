@@ -57,14 +57,14 @@ namespace point_cloud_analyzer_web
             //        CIDRNotation.Parse("88.77.99.11/8")
             //    };
 
-            app.UseFirewall(
-                FirewallRulesEngine
-                    .DenyAllAccess()
-                //  .ExceptFromIPAddressRanges(allowedCIDRs)
-                //  .ExceptFromIPAddresses(allowedIPs)
-                .ExceptFromLocalhost()
-                .ExceptWhen(ctx=>ctx.Connection.RemoteIpAddress.ToString().StartsWith("140"))
-            );
+            //app.UseFirewall(
+            //    FirewallRulesEngine
+            //        .DenyAllAccess()
+            //      .ExceptFromIPAddressRanges(allowedCIDRs)
+            //      .ExceptFromIPAddresses(allowedIPs)
+            //    .ExceptFromLocalhost()
+            //    .ExceptWhen(ctx => ctx.Connection.RemoteIpAddress.ToString().StartsWith("140"))
+            //);
 
             app.UseStaticFiles(new StaticFileOptions
             {
