@@ -42,18 +42,18 @@ namespace point_cloud_analyzer_web.Controllers
             var output = Path.Combine(root, "wwwroot", "output");
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
-            Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
             {
                 file.CopyTo(fileStream);
             }
 
+            Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output", fileName));
             var proc = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "./PotreeConverter/PotreeConverter.exe",
-                    Arguments = $"./upload/{file.FileName}" + " -o " + $"./wwroot/output/{fileName}" + " --output-format LAZ",
+                    FileName = $"{root}/PotreeConverter/PotreeConverter.exe",
+                    Arguments = $"{root}/upload/{file.FileName}" + " -o " + $"{root}/wwroot/output/{fileName}" + " --output-format LAZ",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
@@ -63,8 +63,6 @@ namespace point_cloud_analyzer_web.Controllers
             proc.Start();
             proc.WaitForExit();
 
-            // Exec($"PotreeConverter/PotreeConverter.exe ../upload/{file.FileName} -o ../wwwroot/output/{fileName} --output-format LAZ");
-
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
             System.IO.File.WriteAllText(Path.Combine(output, fileName)  + ".html", text);
@@ -73,27 +71,6 @@ namespace point_cloud_analyzer_web.Controllers
 
             var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
-        }
-
-        public static void Exec(string cmd)
-        {
-            var escapedArgs = cmd.Replace("\"", "\\\"");
-
-            using var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"{escapedArgs}\""
-                }
-            };
-
-            process.Start();
-            process.WaitForExit();
         }
     }
 }
