@@ -35,9 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="PotreeConverter.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="PotreeConverter\laszip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

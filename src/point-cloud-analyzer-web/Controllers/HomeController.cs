@@ -49,7 +49,7 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var converterPath = Path.Combine(root, "PotreeConverter");
+            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output");
 
@@ -78,10 +78,10 @@ namespace point_cloud_analyzer_web.Controllers
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "PotreeConverter.exe",
+                    FileName = "/app/PotreeConverter/PotreeConverter.exe",
                     Arguments = $" {filePath} -o {outputPath} --output-format LAZ",
-                    UseShellExecute = true,
-                    RedirectStandardOutput = false,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
                     CreateNoWindow = true
                 },
             };
