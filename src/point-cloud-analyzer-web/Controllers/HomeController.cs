@@ -35,12 +35,11 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost("FileUpload")]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Index(IFormFile file)
+        public IActionResult Index(IFormFile file)
         {
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var output = Path.Combine(root, "wwwroot", "output");
             var redirect = "output\\" + fileName + ".html";
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
@@ -51,7 +50,7 @@ namespace point_cloud_analyzer_web.Controllers
 
             var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
             var filePath = Path.Combine(root, "upload", file.FileName);
-            var outputPath = Path.Combine(root, "wwwroot", "output");
+            var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
             Exec($"chmod +x {converterPath}");
             Exec($"chmod +x {filePath}");
@@ -70,10 +69,6 @@ namespace point_cloud_analyzer_web.Controllers
                 Console.WriteLine("upload Exists");
             }
 
-
-            //var result = await Cli.Wrap(converterPath)
-            //         .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
-
             var proc = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -91,9 +86,9 @@ namespace point_cloud_analyzer_web.Controllers
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
-            System.IO.File.WriteAllText(Path.Combine(output, fileName) + ".html", text);
+            System.IO.File.WriteAllText(outputPath + ".html", text);
 
-            //System.IO.File.Delete(upload);
+            System.IO.File.Delete(upload);
 
             return Redirect(redirect);
         }
