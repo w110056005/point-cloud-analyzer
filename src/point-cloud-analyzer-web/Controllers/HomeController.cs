@@ -80,7 +80,7 @@ namespace point_cloud_analyzer_web.Controllers
                 {
                     FileName = converterPath,
                     Arguments = $" {filePath} -o {outputPath} --output-format LAZ",
-                    UseShellExecute = false,
+                    UseShellExecute = true,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
                 },
