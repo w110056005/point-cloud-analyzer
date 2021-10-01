@@ -72,14 +72,14 @@ namespace point_cloud_analyzer_web.Controllers
 
 
             var result = await Cli.Wrap(converterPath)
+                     .WithWorkingDirectory(root)
                      .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
             System.IO.File.WriteAllText(Path.Combine(output, fileName) + ".html", text);
 
-            System.IO.File.Delete(upload);
-
+            //System.IO.File.Delete(upload);
 
             return Redirect(redirect);
         }
