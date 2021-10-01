@@ -78,8 +78,8 @@ namespace point_cloud_analyzer_web.Controllers
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "/app/PotreeConverter/PotreeConverter.exe",
-                    Arguments = $" {filePath} -o {outputPath} --output-format LAZ",
+                    FileName = "wine",
+                    Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
