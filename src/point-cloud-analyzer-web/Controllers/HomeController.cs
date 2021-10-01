@@ -53,6 +53,9 @@ namespace point_cloud_analyzer_web.Controllers
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output");
 
+            Exec($"chmod +x {converterPath}");
+            Exec($"chmod +x {filePath}");
+
             Console.WriteLine(converterPath);
             Console.WriteLine(filePath);
             Console.WriteLine(outputPath);
@@ -79,6 +82,27 @@ namespace point_cloud_analyzer_web.Controllers
 
 
             return Redirect(redirect);
+        }
+
+        public static void Exec(string cmd)
+        {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            using var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{escapedArgs}\""
+                }
+            };
+
+            process.Start();
+            process.WaitForExit();
         }
     }
 }
