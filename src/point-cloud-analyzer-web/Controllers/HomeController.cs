@@ -52,6 +52,8 @@ namespace point_cloud_analyzer_web.Controllers
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
+            Directory.CreateDirectory(outputPath);
+
             var result = await Cli.Wrap(converterPath)
                 .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
 
@@ -59,7 +61,7 @@ namespace point_cloud_analyzer_web.Controllers
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
             System.IO.File.WriteAllText(Path.Combine(output, fileName)  + ".html", text);
 
-            //System.IO.File.Delete(upload);
+            System.IO.File.Delete(upload);
 
             var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
