@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CliWrap;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using point_cloud_analyzer_web.Models;
@@ -39,23 +40,45 @@ namespace point_cloud_analyzer_web.Controllers
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var output = "D:\\\\code\\potree\\output\\" + fileName;
+            var redirect = "output\\" + fileName + ".html";
 
+            Directory.CreateDirectory(Path.Combine(root, "upload"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
             {
                 file.CopyTo(fileStream);
+            }
+
+            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            var filePath = Path.Combine(root, "upload", file.FileName);
+            var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
+
+            Exec($"chmod +x {converterPath}");
+            Exec($"chmod +x {filePath}");
+
+            Console.WriteLine(converterPath);
+            Console.WriteLine(filePath);
+            Console.WriteLine(outputPath);
+
+            if (System.IO.File.Exists(converterPath))
+            {
+                Console.WriteLine("Converter Exists");
+            }
+
+            if (System.IO.File.Exists(filePath))
+            {
+                Console.WriteLine("upload Exists");
             }
 
             var proc = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
-                    Arguments = upload + " -o " + output + " --output-format LAZ",
+                    FileName = "wine",
+                    Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = true
-                }
+                },
             };
 
             proc.Start();
@@ -63,12 +86,32 @@ namespace point_cloud_analyzer_web.Controllers
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
-            System.IO.File.WriteAllText(output + "\\..\\" + fileName + ".html", text);
+            System.IO.File.WriteAllText(outputPath + ".html", text);
 
             System.IO.File.Delete(upload);
 
-            var redirect = "http:\\\\localhost:1234\\output\\" + fileName + ".html";
             return Redirect(redirect);
+        }
+
+        public static void Exec(string cmd)
+        {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            using var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{escapedArgs}\""
+                }
+            };
+
+            process.Start();
+            process.WaitForExit();
         }
     }
 }
