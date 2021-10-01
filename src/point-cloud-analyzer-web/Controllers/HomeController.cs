@@ -79,7 +79,6 @@ namespace point_cloud_analyzer_web.Controllers
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "PotreeConverter.exe",
-                    WorkingDirectory = converterPath,
                     Arguments = $" {filePath} -o {outputPath} --output-format LAZ",
                     UseShellExecute = true,
                     RedirectStandardOutput = false,
