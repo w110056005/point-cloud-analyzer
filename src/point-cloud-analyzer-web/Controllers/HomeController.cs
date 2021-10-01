@@ -49,7 +49,7 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter");
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output");
 
