@@ -71,9 +71,23 @@ namespace point_cloud_analyzer_web.Controllers
             }
 
 
-            var result = await Cli.Wrap(converterPath)
-                     .WithWorkingDirectory(root)
-                     .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
+            //var result = await Cli.Wrap(converterPath)
+            //         .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
+
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = converterPath,
+                    Arguments = $" {filePath} -o {outputPath} --output-format LAZ",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                },
+            };
+
+            proc.Start();
+            proc.WaitForExit();
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
