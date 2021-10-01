@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.3.3" />
     <PackageReference Include="Firewall" Version="3.0.0" />
   </ItemGroup>
 

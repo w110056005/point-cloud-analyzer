@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CliWrap;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using point_cloud_analyzer_web.Models;
@@ -34,7 +35,7 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost("FileUpload")]
         [DisableRequestSizeLimit]
-        public IActionResult Index(IFormFile file)
+        public async Task<IActionResult> Index(IFormFile file)
         {
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
@@ -47,22 +48,12 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            Directory.CreateDirectory(Path.Combine(root, "wwwroot", "output", fileName));
-            var proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe"),
-                    Arguments = Path.Combine(root, "upload", file.FileName) + " -o " 
-                        + Path.Combine(root, "wwwroot", "output", fileName) + " --output-format LAZ",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                },
-            };
+            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            var filePath = Path.Combine(root, "upload", file.FileName);
+            var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
-            proc.Start();
-            proc.WaitForExit();
+            var result = await Cli.Wrap(converterPath)
+                .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
