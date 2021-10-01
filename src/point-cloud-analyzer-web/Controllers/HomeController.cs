@@ -48,19 +48,37 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            //var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
-            var converterPath = "PotreeConverter/PotreeConverter.exe";
+            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            //var converterPath = "PotreeConverter/PotreeConverter.exe";
             //var filePath = Path.Combine(root, "upload", file.FileName);
             var filePath = $"../upload/{file.FileName}";
             //var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
             var outputPath = $"../wwwroot/output/{fileName}";
 
-            var result = await Cli.Wrap(converterPath)
-                .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
+            if (System.IO.File.Exists(converterPath))
+            {
+                Console.WriteLine("Converter Exists");
+            }
+
+            if (System.IO.File.Exists(filePath))
+            {
+                Console.WriteLine("upload Exists");
+            }
+
+            try
+            {
+                var result = await Cli.Wrap(converterPath)
+                         .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
-            System.IO.File.WriteAllText(Path.Combine(output, fileName)  + ".html", text);
+            System.IO.File.WriteAllText(Path.Combine(output, fileName) + ".html", text);
 
             System.IO.File.Delete(upload);
 
