@@ -41,6 +41,7 @@ namespace point_cloud_analyzer_web.Controllers
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
             var output = Path.Combine(root, "wwwroot", "output");
+            var redirect = "output\\" + fileName + ".html";
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
@@ -50,10 +51,14 @@ namespace point_cloud_analyzer_web.Controllers
 
             var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
             //var converterPath = "PotreeConverter/PotreeConverter.exe";
-            //var filePath = Path.Combine(root, "upload", file.FileName);
-            var filePath = $"../upload/{file.FileName}";
+            var filePath = Path.Combine(root, "upload", file.FileName);
+            //var filePath = $"../upload/{file.FileName}";
             //var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
             var outputPath = $"../wwwroot/output/{fileName}";
+
+            Console.WriteLine(converterPath);
+            Console.WriteLine(filePath);
+            Console.WriteLine(outputPath);
 
             if (System.IO.File.Exists(converterPath))
             {
@@ -69,20 +74,19 @@ namespace point_cloud_analyzer_web.Controllers
             {
                 var result = await Cli.Wrap(converterPath)
                          .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
+
+                string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
+                text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
+                System.IO.File.WriteAllText(Path.Combine(output, fileName) + ".html", text);
+
+                System.IO.File.Delete(upload);
+
             }
             catch (Exception ex)
             {
 
             }
 
-
-            string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
-            text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
-            System.IO.File.WriteAllText(Path.Combine(output, fileName) + ".html", text);
-
-            System.IO.File.Delete(upload);
-
-            var redirect = "output\\" + fileName + ".html";
             return Redirect(redirect);
         }
     }
