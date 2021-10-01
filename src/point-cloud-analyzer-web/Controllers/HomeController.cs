@@ -48,11 +48,12 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
-            var filePath = Path.Combine(root, "upload", file.FileName);
-            var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
-
-            Directory.CreateDirectory(outputPath);
+            //var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            var converterPath = "PotreeConverter/PotreeConverter.exe";
+            //var filePath = Path.Combine(root, "upload", file.FileName);
+            var filePath = $"upload/{file.FileName}";
+            //var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
+            var outputPath = $"wwwroot/output/{fileName}";
 
             var result = await Cli.Wrap(converterPath)
                 .WithArguments($"{filePath} -o {outputPath} --output-format LAZ").ExecuteAsync();
