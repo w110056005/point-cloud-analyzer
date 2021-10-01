@@ -50,11 +50,8 @@ namespace point_cloud_analyzer_web.Controllers
             }
 
             var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
-            //var converterPath = "PotreeConverter/PotreeConverter.exe";
             var filePath = Path.Combine(root, "upload", file.FileName);
-            //var filePath = $"../upload/{file.FileName}";
-            var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
-            //var outputPath = $"../wwwroot/output/{fileName}";
+            var outputPath = Path.Combine(root, "wwwroot", "output");
 
             Console.WriteLine(converterPath);
             Console.WriteLine(filePath);
