@@ -19,7 +19,10 @@ namespace script_executor_web_api.Controllers
             {
                 var root = System.IO.Directory.GetCurrentDirectory();
                 var pathToPy = await Cli.Wrap("python3")
-                  .WithArguments(new[] { Path.Combine(root, "Files", "open3d_ICP_ori.py" )})
+                  .WithArguments(new[] { Path.Combine(root, "Scripts", "open3d_ICP_ori.py"),
+                      Path.Combine(root, "Files", "bun000.ply"),
+                      Path.Combine(root, "Files", "bun045.ply")}
+                  )
                   .ExecuteBufferedAsync();
                 return Ok(pathToPy);
             }
