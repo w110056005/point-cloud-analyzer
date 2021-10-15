@@ -14,4 +14,16 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Files\bun000.ply">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\bun045.ply">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\open3d_ICP_ori.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
