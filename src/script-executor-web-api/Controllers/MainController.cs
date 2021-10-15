@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using CliWrap;
+using CliWrap.Buffered;
 using System.Threading.Tasks;
 
 namespace script_executor_web_api.Controllers
@@ -12,9 +10,13 @@ namespace script_executor_web_api.Controllers
     public class MainController : ControllerBase
     {
 
-        [HttpPost]
-        public IActionResult Post()
+        [HttpPost("ExecuteScript")]
+        public async Task<IActionResult> ExecuteScript()
         {
+            var pathToPy = await Cli.Wrap("python3")
+                  .WithArguments(new[] { "open3d_ICP_ori.py" })
+                  .ExecuteBufferedAsync();
+
             return Ok();
         }
     }
