@@ -8,10 +8,10 @@ import sys
 # read point cloud data
 voxel_size = 0.02
 pcds = [] # save pcd into list
-source = o3d.io.read_point_cloud(sys.argv[0])
+source = o3d.io.read_point_cloud(sys.argv[1])
 source.paint_uniform_color([1, 0.706, 0]) # source is yello
 pcds.append(source)
-target = o3d.io.read_point_cloud(sys.argv[1])
+target = o3d.io.read_point_cloud(sys.argv[2])
 target.paint_uniform_color([0, 0.651, 0.929]) # target is blue
 pcds.append(target)
 
