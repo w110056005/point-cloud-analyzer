@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="PotreeConverter\Linux\" />
     <Folder Include="wwwroot\build\potree\lazylibs\geopackage\" />
     <Folder Include="wwwroot\build\potree\lazylibs\sql.js\" />
     <Folder Include="wwwroot\build\potree\resources\icons\matcap\" />
@@ -35,19 +36,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="PotreeConverter\laszip.dll">
+    <None Update="PotreeConverter\Windows\laszip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PotreeConverter\LICENSE">
+    <None Update="PotreeConverter\Windows\LICENSE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PotreeConverter\PotreeConverter.exe">
+    <None Update="PotreeConverter\Windows\PotreeConverter.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PotreeConverter\README.md">
+    <None Update="PotreeConverter\Windows\README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="PotreeConverter\template.html">
+    <None Update="PotreeConverter\Windows\template.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
