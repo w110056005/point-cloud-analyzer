@@ -26,16 +26,9 @@ namespace point_cloud_analyzer_web.Controllers
             return View();
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpPost("FileUpload")]
         [DisableRequestSizeLimit]
-        public IActionResult Index(IFormFile file)
+        public async Task<IActionResult> FileUpload(IFormFile file)
         {
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
@@ -48,7 +41,7 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var converterPath = Path.Combine(root, "PotreeConverter", "PotreeConverter.exe");
+            var converterPath = Path.Combine(root, "PotreeConverter", "Windows", "PotreeConverter.exe");
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
@@ -69,20 +62,10 @@ namespace point_cloud_analyzer_web.Controllers
                 Console.WriteLine("upload Exists");
             }
 
-            var proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "wine",
-                    Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                },
-            };
+            await Cli.Wrap("wine")
+                .WithArguments($"{converterPath} {filePath} -o {outputPath} --output-format LAZ")
+                .ExecuteAsync();
 
-            proc.Start();
-            proc.WaitForExit();
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
@@ -93,7 +76,40 @@ namespace point_cloud_analyzer_web.Controllers
             return Redirect(redirect);
         }
 
-        public static void Exec(string cmd)
+        public IActionResult Registration()
+        {
+            return View("Registration");
+        }
+
+        [HttpPost]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> Registration(List<IFormFile> files)
+        {
+          
+            //await Cli.Wrap(converterPath)
+            //    .WithArguments($"{filePath} -o {outputPath} --output-format LAZ")
+            //    .ExecuteAsync();
+
+
+            //string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
+            //text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
+            //System.IO.File.WriteAllText(outputPath + ".html", text);
+
+            //System.IO.File.Delete(upload);
+
+            //return Redirect(redirect);
+
+            return Ok();
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private static void Exec(string cmd)
         {
             var escapedArgs = cmd.Replace("\"", "\\\"");
 

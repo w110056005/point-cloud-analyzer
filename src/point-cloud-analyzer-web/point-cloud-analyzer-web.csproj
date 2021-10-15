@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>point_cloud_analyzer_web</RootNamespace>
     <AssemblyName>point-cloud-analyzer-web</AssemblyName>
   </PropertyGroup>
@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="PotreeConverter\Linux\" />
     <Folder Include="wwwroot\build\potree\lazylibs\geopackage\" />
     <Folder Include="wwwroot\build\potree\lazylibs\sql.js\" />
     <Folder Include="wwwroot\build\potree\resources\icons\matcap\" />
@@ -35,19 +36,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="PotreeConverter\laszip.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="PotreeConverter\LICENSE">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="PotreeConverter\PotreeConverter.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="PotreeConverter\README.md">
+    <None Update="PotreeConverter\Linux\PotreeConverter">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="PotreeConverter\template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="PotreeConverter\Windows\laszip.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="PotreeConverter\Windows\PotreeConverter.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
