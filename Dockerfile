@@ -3,8 +3,6 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 COPY ./src /src
 WORKDIR /src
 
-# nuget restore
-RUN dotnet restore
 #release to target folder
 RUN dotnet publish point-cloud-analyzer-web -o /publish --configuration Release
 
