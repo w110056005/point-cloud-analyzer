@@ -35,7 +35,7 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost("FileUpload")]
         [DisableRequestSizeLimit]
-        public IActionResult Index(IFormFile file)
+        public async Task<IActionResult> Index(IFormFile file)
         {
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
@@ -52,8 +52,8 @@ namespace point_cloud_analyzer_web.Controllers
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
-            Exec($"chmod +x {converterPath}");
-            Exec($"chmod +x {filePath}");
+            //Exec($"chmod +x {converterPath}");
+            //Exec($"chmod +x {filePath}");
 
             Console.WriteLine(converterPath);
             Console.WriteLine(filePath);
@@ -69,20 +69,25 @@ namespace point_cloud_analyzer_web.Controllers
                 Console.WriteLine("upload Exists");
             }
 
-            var proc = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "wine",
-                    Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                },
-            };
+            //var proc = new Process
+            //{
+            //    StartInfo = new ProcessStartInfo
+            //    {
+            //        FileName = "wine",
+            //        Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
+            //        UseShellExecute = false,
+            //        RedirectStandardOutput = true,
+            //        CreateNoWindow = true
+            //    },
+            //};
 
-            proc.Start();
-            proc.WaitForExit();
+            //proc.Start();
+            //proc.WaitForExit();
+
+            await Cli.Wrap(converterPath)
+                .WithArguments($"{filePath} -o {outputPath} --output-format LAZ")
+                .ExecuteAsync();
+
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
             text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
