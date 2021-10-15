@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "point-cloud-analyzer-web", "src\point-cloud-analyzer-web\point-cloud-analyzer-web.csproj", "{B258C60B-866E-46DA-9CCF-80E17B44A4BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "script-executor-web-api", "script-executor-web-api\script-executor-web-api.csproj", "{6D45AD90-D3FF-44DA-A65A-9B7FA727CAC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "script-executor-web-api", "src\script-executor-web-api\script-executor-web-api.csproj", "{6D45AD90-D3FF-44DA-A65A-9B7FA727CAC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
