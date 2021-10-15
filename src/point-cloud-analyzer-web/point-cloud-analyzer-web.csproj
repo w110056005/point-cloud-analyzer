@@ -39,6 +39,9 @@
     <None Update="PotreeConverter\Linux\PotreeConverter">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="PotreeConverter\template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PotreeConverter\Windows\laszip.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
