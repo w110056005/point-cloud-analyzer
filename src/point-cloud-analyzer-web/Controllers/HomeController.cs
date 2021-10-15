@@ -26,16 +26,9 @@ namespace point_cloud_analyzer_web.Controllers
             return View();
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpPost("FileUpload")]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Index(IFormFile file)
+        public async Task<IActionResult> FileUpload(IFormFile file)
         {
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
@@ -98,25 +91,37 @@ namespace point_cloud_analyzer_web.Controllers
             return Redirect(redirect);
         }
 
-        public static void Exec(string cmd)
+        public IActionResult Registration()
         {
-            var escapedArgs = cmd.Replace("\"", "\\\"");
+            return View("Registration");
+        }
 
-            using var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "/bin/bash",
-                    Arguments = $"-c \"{escapedArgs}\""
-                }
-            };
+        [HttpPost]
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> Registration(List<IFormFile> files)
+        {
+          
+            //await Cli.Wrap(converterPath)
+            //    .WithArguments($"{filePath} -o {outputPath} --output-format LAZ")
+            //    .ExecuteAsync();
 
-            process.Start();
-            process.WaitForExit();
+
+            //string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
+            //text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
+            //System.IO.File.WriteAllText(outputPath + ".html", text);
+
+            //System.IO.File.Delete(upload);
+
+            //return Redirect(redirect);
+
+            return Ok();
+        }
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
