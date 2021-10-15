@@ -41,7 +41,7 @@ namespace point_cloud_analyzer_web.Controllers
                 file.CopyTo(fileStream);
             }
 
-            var converterPath = Path.Combine(root, "PotreeConverter", "Linux", "PotreeConverter");
+            var converterPath = Path.Combine(root, "PotreeConverter", "Windows", "PotreeConverter.exe");
             var filePath = Path.Combine(root, "upload", file.FileName);
             var outputPath = Path.Combine(root, "wwwroot", "output", fileName);
 
@@ -62,23 +62,8 @@ namespace point_cloud_analyzer_web.Controllers
                 Console.WriteLine("upload Exists");
             }
 
-            //var proc = new Process
-            //{
-            //    StartInfo = new ProcessStartInfo
-            //    {
-            //        FileName = "wine",
-            //        Arguments = $"{converterPath} {filePath} -o {outputPath} --output-format LAZ",
-            //        UseShellExecute = false,
-            //        RedirectStandardOutput = true,
-            //        CreateNoWindow = true
-            //    },
-            //};
-
-            //proc.Start();
-            //proc.WaitForExit();
-
-            await Cli.Wrap(converterPath)
-                .WithArguments($"{filePath} -o {outputPath} --output-format LAZ")
+            await Cli.Wrap("wine")
+                .WithArguments($"{converterPath} {filePath} -o {outputPath} --output-format LAZ")
                 .ExecuteAsync();
 
 
