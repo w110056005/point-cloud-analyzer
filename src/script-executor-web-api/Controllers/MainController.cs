@@ -13,16 +13,16 @@ namespace script_executor_web_api.Controllers
     {
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string ply1, string ply2, string output)
         {
             try
             {
                 var root = System.IO.Directory.GetCurrentDirectory();
                 var pathToPy = await Cli.Wrap("python3")
                   .WithArguments(new[] { Path.Combine(root, "Scripts", "open3d_ICP_ori.py"),
-                      Path.Combine(root, "Files", "bun000.ply"),
-                      Path.Combine(root, "Files", "bun045.ply"),
-                      Path.Combine(root, "Outputs", "result.ply")}
+                      Path.Combine(root, "Files", ply1),
+                      Path.Combine(root, "Files", ply2),
+                      Path.Combine(root, "Outputs", output)}
                   )
                   .ExecuteBufferedAsync();
                 return Ok(pathToPy);
