@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+     image: point-cloud-web
+          ports:
+       - 8000:80
+  service1:
+     image: micro-service-1
+          ports:
+       - 8001:80
