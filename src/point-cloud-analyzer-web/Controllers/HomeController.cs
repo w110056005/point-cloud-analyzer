@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace point_cloud_analyzer_web.Controllers
@@ -16,12 +15,10 @@ namespace point_cloud_analyzer_web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IHttpClientFactory _clientFactory;
-        public HomeController(ILogger<HomeController> logger,
-            IHttpClientFactory clientFactory)
+
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _clientFactory = clientFactory;
         }
 
         public IActionResult Index()
@@ -86,23 +83,23 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Registration(string ply1, string ply2, string output)
+        public async Task<IActionResult> Registration(List<IFormFile> files)
         {
+          
+            //await Cli.Wrap(converterPath)
+            //    .WithArguments($"{filePath} -o {outputPath} --output-format LAZ")
+            //    .ExecuteAsync();
 
-            var request = new HttpRequestMessage(HttpMethod.Get,
-             $"service1/main?ply1={ply1}&ply2={ply2}&output={output}");
 
-            var client = _clientFactory.CreateClient();
+            //string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
+            //text = text.Replace("[OutputFilePath]", fileName + "/cloud.js");
+            //System.IO.File.WriteAllText(outputPath + ".html", text);
 
-            var response = await client.SendAsync(request);
+            //System.IO.File.Delete(upload);
 
-            if (response.IsSuccessStatusCode)
-            {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
-                return Ok();
-            }
+            //return Redirect(redirect);
 
-            return BadRequest();
+            return Ok();
         }
 
 
