@@ -22,7 +22,7 @@ namespace script_executor_web_api.Controllers
                   .WithArguments(new[] { Path.Combine(root, "Scripts", "open3d_ICP_ori.py"),
                       Path.Combine(root, "Files", ply1),
                       Path.Combine(root, "Files", ply2),
-                      Path.Combine("Outputs", output)}
+                      Path.Combine(root, "Outputs", output)}
                   )
                   .ExecuteBufferedAsync();
                 return Ok(pathToPy);
