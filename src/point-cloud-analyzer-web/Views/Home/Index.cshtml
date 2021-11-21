@@ -2,15 +2,15 @@
 <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
 <script type="text/javascript" src="http://malsup.github.io/jquery.blockUI.js"></script>
 <script type="text/javascript">
-    $(function () {
-        $("#submit").click(function () {
-            $("#form").block({
-                message: '<h1>Loading...</h1>'
-            });
+    //$(function () {
+    //    $("#submit").click(function () {
+    //        $("#form").block({
+    //            message: '<h1>Loading...</h1>'
+    //        });
 
-            $("#form").submit();
-        });//end click
-    });
+    //        $("#form").submit();
+    //    });//end click
+    //});
 </script>
 <form method="post" id="form" enctype="multipart/form-data" asp-controller="Home" asp-action="BaseView">
     <div class="form-group">
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-10">
-            <input id="submit" type="button" value="Upload" />
+            <input id="submit" type="submit" value="Upload" />
         </div>
     </div>
 </form>

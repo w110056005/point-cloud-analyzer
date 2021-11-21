@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\registration_template.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CliWrap" Version="3.3.3" />
   </ItemGroup>
 
@@ -37,12 +33,6 @@
     <Folder Include="wwwroot\build\potree\resources\textures\skybox\" />
     <Folder Include="wwwroot\build\potree\workers\2.0\" />
     <Folder Include="wwwroot\build\shaders\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\registration_template.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

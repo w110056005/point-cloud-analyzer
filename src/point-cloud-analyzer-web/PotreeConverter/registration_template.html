@@ -33,7 +33,7 @@
 	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
 	<!-- INCLUDE SETTINGS HERE -->
 	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px; display: flex; ">
-		<div id="potree_render_area" style="background-image: url('../build/potree/resources/images/background.jpg');width: 50%;height:50%"></div>
+		<div id="potree_render_area1" style="background-image: url('../build/potree/resources/images/background.jpg');width: 50%;height:50%"></div>
 	</div>
 	<div class="potree_container" style="position: absolute; width: 100%; height: 100%; left: 50%; top: 0px; display: flex; ">
 		<div id="potree_render_area2" style="background-image: url('../build/potree/resources/images/background.jpg');width: 50%;height:50%"></div>
@@ -58,6 +58,9 @@
 
 		viewer1.loadGUI(() => {
 			viewer1.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
 		});
 
 		Potree.loadPointCloud("[OutputFilePath1]", "lion", function (e) {
@@ -80,6 +83,9 @@
 
 		viewer2.loadGUI(() => {
 			viewer2.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
 		});
 
 		Potree.loadPointCloud("[OutputFilePath2]", "lion", function (e) {
@@ -98,11 +104,13 @@
 		viewer3.setPointBudget(1_000_000);
 		viewer3.loadSettingsFromURL();
 
-		viewer3.setDescription("");
+		viewer3.setDescription("Move the Camera here.");
 
 		viewer3.loadGUI(() => {
 			viewer3.setLanguage('zh');
-			$("#menu_appearance").next().show();
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
 		});
 
 		Potree.loadPointCloud("[OutputFilePath3]", "lion", function (e) {
