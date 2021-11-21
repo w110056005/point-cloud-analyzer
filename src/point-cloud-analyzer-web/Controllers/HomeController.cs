@@ -85,7 +85,7 @@ namespace point_cloud_analyzer_web.Controllers
         public async Task<IActionResult> DoRegistration(List<IFormFile> files)
         {
             if (files.Count == 0 || files.Count != 2) {
-                return NotFound();
+                return BadRequest("Please upload two point cloud datasets.");
             }
 
             var root = Directory.GetCurrentDirectory();

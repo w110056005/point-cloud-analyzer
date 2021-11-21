@@ -69,6 +69,7 @@
 			let material = e.pointcloud.material;
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer1.fitToScreen();
 		});
 
 		// Viewer2
@@ -94,6 +95,7 @@
 			let material = e.pointcloud.material;
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer2.fitToScreen();
 		});
 
 		// Viewer 3
@@ -104,7 +106,7 @@
 		viewer3.setPointBudget(1_000_000);
 		viewer3.loadSettingsFromURL();
 
-		viewer3.setDescription("Move the Camera here.");
+		viewer3.setDescription("");
 
 		viewer3.loadGUI(() => {
 			viewer3.setLanguage('zh');
@@ -119,6 +121,7 @@
 			let material = e.pointcloud.material;
 			material.size = 1;
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+			viewer3.fitToScreen();
 		});
 
         // Listen for camera changes
