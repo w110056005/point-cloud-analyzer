@@ -32,7 +32,6 @@ namespace point_cloud_analyzer_web.Controllers
             var root = System.IO.Directory.GetCurrentDirectory();
             var upload = Path.Combine(root, "upload", file.FileName);
             var fileName = file.FileName.Split('.')[0];
-            var redirect = "output\\" + fileName + ".html";
 
             Directory.CreateDirectory(Path.Combine(root, "upload"));
             using (Stream fileStream = new FileStream(upload, FileMode.Create))
@@ -72,6 +71,8 @@ namespace point_cloud_analyzer_web.Controllers
 
             System.IO.File.Delete(upload);
 
+            var redirect = "..\\output\\" + fileName + ".html";
+
             return Redirect(redirect);
         }
 
@@ -89,7 +90,6 @@ namespace point_cloud_analyzer_web.Controllers
 
             var root = Directory.GetCurrentDirectory();
             string htmlText = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "registration_template.html"));
-
 
             foreach (var file in files)
             {
@@ -115,7 +115,6 @@ namespace point_cloud_analyzer_web.Controllers
                 .WithArguments($"{script} {file1} {file2} {mergedFile}")
                 .ExecuteAsync();
 
-            var redirect = "output\\" + $"{file1Name}_{file2Name}.html";
 
             var converterPath = Path.Combine(root, "PotreeConverter", "Windows", "PotreeConverter.exe");
             var outputPathFile1 = 
@@ -159,6 +158,8 @@ namespace point_cloud_analyzer_web.Controllers
             htmlText = htmlText.Replace("[OutputFilePath2]", $"{file2Name}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath3]", $"{file1Name}_{file2Name}" + "/cloud.js");
             System.IO.File.WriteAllText(outputPathResult + ".html", htmlText);
+
+            var redirect = "..\\output\\" + $"{file1Name}_{file2Name}.html";
 
             return Redirect(redirect);
         }
