@@ -25,4 +25,18 @@ RUN dpkg --add-architecture i386 && \
 	wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
 	chmod +x winetricks 
 
+# Install Open3D system dependencies and pip
+RUN apt-get update && apt-get install --install-recommends -y \
+    gcc \
+    libgl1 \
+    libgomp1 \
+    libusb-1.0-0 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade setuptools
+
+# Install Open3D from the pypi repositories
+RUN python3 -m pip install --no-cache-dir open3d
+
 ENTRYPOINT ["dotnet", "point-cloud-analyzer-web.dll", "--environment=Development"]
