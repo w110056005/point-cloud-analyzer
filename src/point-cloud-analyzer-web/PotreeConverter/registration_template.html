@@ -123,17 +123,6 @@
 			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
 			viewer3.fitToScreen();
 		});
-
-        // Listen for camera changes
-        viewer3.addEventListener('camera_changed', (event) => {
-            // When camera changes, override camera of other viewer
-            viewer1.scene.overrideCamera = event.camera;
-            viewer2.scene.overrideCamera = event.camera;
-            // Somehow it took me 2 hours to find this `overrideCamera` feature
-            // Hurray for good documentation
-            // viewer2.scene.overrideCamera = null;
-        });
-
 	</script>
 
 
