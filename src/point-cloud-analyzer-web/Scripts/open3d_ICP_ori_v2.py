@@ -1,12 +1,6 @@
 import open3d as o3d
 import numpy as np
 import sys
-import math
-import copy
-from RegistrationResult import RegistrationResult
-from ICPConvergenceCriteria import ICPConvergenceCriteria
-from TransformationEstimation import TransformationEstimationPointToPoint
-
 
 # read point cloud data
 voxel_size = 0.02
