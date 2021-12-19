@@ -109,7 +109,7 @@ namespace point_cloud_analyzer_web.Controllers
             var file2Name = files[1].FileName.Split('.')[0];
             var mergedFile = 
                 Path.Combine(root, "upload", $"{file1Name}_{file2Name}.ply");
-            var script = Path.Combine(root, "Scripts", "open3d_ICP_ori.py");
+            var script = Path.Combine(root, "Scripts", "open3d_ICP_ori_v2.py");
 
             await Cli.Wrap("python3")
                 .WithArguments($"{script} {file1} {file2} {mergedFile}")
