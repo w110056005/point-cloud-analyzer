@@ -103,6 +103,6 @@ print(trans_result.transformation)
 source = source.transform(trans_result.transformation)
 #source.transform(trans_init)
 #print(getResult(source,target,o3d.geometry.KDTreeFlann(target),0.02,trans_result.transformation).inlier_rmse_)
-o3d.visualization.draw_geometries([source,target], window_name  ='Open3D Result', width=1080, height=720)
+#o3d.visualization.draw_geometries([source,target], window_name  ='Open3D Result', width=1080, height=720)
 source_trasformed = source+target
 o3d.io.write_point_cloud(sys.argv[3], source_trasformed)

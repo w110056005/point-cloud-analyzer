@@ -60,6 +60,9 @@
     <None Update="Scripts\open3d_ICP_ori.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Scripts\open3d_ICP_ori_v2.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
