@@ -146,7 +146,7 @@ namespace point_cloud_analyzer_web.Controllers
                .ExecuteAsync();
 
             await Cli.Wrap("wine")
-               .WithArguments($"{converterPath} {mergedFile} -o {outputPathFile2} --output-format LAZ --overwrite")
+               .WithArguments($"{converterPath} {file2} -o {outputPathFile2} --output-format LAZ --overwrite")
                .ExecuteAsync();
 
             await Cli.Wrap("wine")
@@ -164,12 +164,6 @@ namespace point_cloud_analyzer_web.Controllers
             return Redirect(redirect);
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
         private static void Exec(string cmd)
         {
