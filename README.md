@@ -41,8 +41,22 @@ Open browser and input http://localhost:8000/
 1. 直接呈現點雲模型
 ![view_point_cloud](./images/view_point_cloud.png)
 
-2. 點雲配準功能(目前只支援.ply)
+2. 點雲配準功能
 ![registration](./images/registration.png)
+
+#### Swagger
+Enter http://localhost:8000/swagger
+
+目前提供兩個controller
+1. File 檔案上傳功能
+2. MicroService 提供呼叫Microservice 並將回傳檔案轉為可視化模型功能
+![swagger](./images/swagger.png)
+
+用POST 傳入參數
+1. Files 欲處理之點雲模型
+2. url MicroService 之路徑
+3. parameters 執行該服務所需之指令參數
+![call_microservice](./images/call_microservice.png)
 
 
 ## Build your own Web Service##

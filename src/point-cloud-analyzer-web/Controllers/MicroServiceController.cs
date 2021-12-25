@@ -12,7 +12,7 @@ namespace point_cloud_analyzer_web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MainController : BaseController
+    public class MicroServiceController : BaseController
     {
 
         [HttpPost]
