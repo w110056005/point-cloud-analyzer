@@ -30,7 +30,7 @@ Wait for build sucess. (Takes 15 mins each, due to the open3d installation)
 docker run -d --rm -p 8000:80 main-web .
 ```
 ``` shell
-docker run -d --rm -p 8888:8888 registration-api .
+docker run -d --rm -p 8001:8001 registration-api .
 ```
 
 ## Usage
