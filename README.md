@@ -1,9 +1,9 @@
 # 3D 點雲模型分析平台
 
 ## Getting Started
-#### 確保主機已安裝 [docker](https://docs.docker.com/engine/install/ "docker") 環境 #####
+#### 確保主機已安裝 [docker](https://docs.docker.com/engine/install/ "docker") 環境
 
-#### Clone the Repo #####
+#### Clone the Repo
 ```shell
 git clone "https://github.com/w110056005/point-cloud-analyzer-platform.git"
 ```
@@ -59,7 +59,7 @@ Enter http://localhost:8000/swagger
 ![call_microservice](./images/call_microservice.png)
 
 
-## Build your own Web Service##
+## Build your own Web Service
 #### Python (Flask Web API)
 
 1. 複製 Sample-registration-api 資料夾，並根據需要重新命名
