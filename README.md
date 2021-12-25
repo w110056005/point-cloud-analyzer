@@ -27,10 +27,10 @@ docker image build -t registration-api .
 Wait for build sucess. (Takes 15 mins each, due to the open3d installation)
 #### Docker run
 ``` shell
-docker run -d --rm -p 8000:80 main-web .
+docker run -d --rm -p 8000:80 main-web
 ```
 ``` shell
-docker run -d --rm -p 8001:8001 registration-api .
+docker run -d --rm -p 8001:8001 registration-api
 ```
 
 ## Usage
