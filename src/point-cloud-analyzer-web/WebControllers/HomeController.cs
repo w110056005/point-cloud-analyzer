@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using point_cloud_analyzer_web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace point_cloud_analyzer_web.Controllers
+namespace point_cloud_analyzer_web.WebControllers
 {
     public class HomeController : Controller
     {

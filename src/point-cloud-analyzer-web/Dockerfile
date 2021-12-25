@@ -1,10 +1,10 @@
-#FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-COPY ./src /src
-WORKDIR /src
+WORKDIR /app
+
+COPY . ./
 
 #release to target folder
-RUN dotnet publish point-cloud-analyzer-web -o /publish --configuration Release
+RUN dotnet publish -o /publish --configuration Release
 
 #FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
@@ -37,6 +37,6 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install --upgrade setuptools
 
 # Install Open3D from the pypi repositories
-RUN python3 -m pip install --no-cache-dir open3d
+RUN python3 -m pip install open3d
 
 ENTRYPOINT ["dotnet", "point-cloud-analyzer-web.dll", "--environment=Development"]
