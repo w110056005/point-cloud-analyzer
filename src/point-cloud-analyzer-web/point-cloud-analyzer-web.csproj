@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="CliWrap" Version="3.3.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,12 @@
     <Folder Include="wwwroot\build\shaders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Files\module.json" />
+  </ItemGroup>
   <ItemGroup>
     <None Update="Files\bun000.ply">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -67,4 +74,17 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Files\module.json" />
+  </ItemGroup>
 </Project>
