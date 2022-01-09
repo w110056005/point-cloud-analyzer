@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using point_cloud_analyzer_web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,7 +34,7 @@ namespace point_cloud_analyzer_web.Controllers
             process.WaitForExit();
         }
 
-        protected async Task<Stream> CallMicroService(IFormCollection payload)
+        protected async Task<Stream> CallMicroService(PayloadModel payload)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -46,7 +47,7 @@ namespace point_cloud_analyzer_web.Controllers
                     }
 
                     client.Timeout = TimeSpan.FromSeconds(30);
-                    HttpResponseMessage response = await client.PostAsync(payload["url"], multipartContent);
+                    HttpResponseMessage response = await client.PostAsync(payload.Url, multipartContent);
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStreamAsync();
 

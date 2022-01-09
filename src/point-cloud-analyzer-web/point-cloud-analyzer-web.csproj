@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="PotreeConverter\Linux\" />
     <Folder Include="wwwroot\build\potree\lazylibs\geopackage\" />
     <Folder Include="wwwroot\build\potree\lazylibs\sql.js\" />

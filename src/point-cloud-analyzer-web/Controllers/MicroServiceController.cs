@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CliWrap;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using point_cloud_analyzer_web.Models;
 
 namespace point_cloud_analyzer_web.Controllers
 {
@@ -17,7 +17,7 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Post(IFormCollection data)
+        public async Task<IActionResult> Post([FromForm]PayloadModel data)
         {
             var fullFileName = "test.ply";
             var file = CallMicroService(data);
