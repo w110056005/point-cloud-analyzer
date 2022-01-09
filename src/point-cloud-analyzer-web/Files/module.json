@@ -1,1 +1,16 @@
-[{"Id":0,"Name":"test module1","Url":"http://test.com/","NeedUploadFile":false,"NeedCommand":false},{"Id":1,"Name":"test module 2","Url":"http://test.com/","NeedUploadFile":true,"NeedCommand":true},{"Id":2,"Name":"test module 3","Url":"http://test.com/","NeedUploadFile":true,"NeedCommand":false}]
+[
+  {
+    "Id": 0,
+    "Name": "ÂI¶³°t·Ç",
+    "Url": "http://172.17.0.3:8001/registration",
+    "NeedUploadFile": true,
+    "NeedCommand": false
+  },
+  {
+    "Id": 1,
+    "Name": "test module 2",
+    "Url": "http://test.com/",
+    "NeedUploadFile": true,
+    "NeedCommand": true
+  }
+]
