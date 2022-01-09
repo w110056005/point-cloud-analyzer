@@ -41,7 +41,9 @@
     <None Remove="Newtonsoft.Json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Files\module.json" />
+    <None Include="Files\module.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Update="Files\bun000.ply">
