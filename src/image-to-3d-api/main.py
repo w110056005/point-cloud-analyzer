@@ -9,16 +9,16 @@ app = Flask(__name__)
 def convert():
     data = request.form
     print(data)
-    os.makedirs('~/code/data/'+data['command'], exist_ok=True)
+    os.makedirs('~/code/OpenSfM/data/'+data['command'], exist_ok=True)
     files = request.files.getlist("file")
     print(files)
     for file in files:
-        file.save('~/code/data/'+data['command']+'/'+file.filename)
+        file.save('~/code/OpenSfM/data/'+data['command']+'/'+file.filename)
 
     # copy 
     p = subprocess.run(
         [
-            'docker', 'exec', '-it', 'opensfm_opensfm_1', 'bin/opensfm_run_all', '~/code/data/'+data['command']
+            'docker', 'exec', '-it', 'opensfm_opensfm_1', 'bin/opensfm_run_all', '~/code/OpenSfM/data/'+data['command']
         ]
     )
     return Response(status = 200)
