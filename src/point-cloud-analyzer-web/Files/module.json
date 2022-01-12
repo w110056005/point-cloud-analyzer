@@ -1,15 +1,15 @@
 [
   {
     "Id": 0,
-    "Name": "ÂI¶³°t·Ç",
+    "Name": "Registration",
     "Url": "http://172.17.0.3:8001/registration",
     "NeedUploadFile": true,
     "NeedCommand": false
   },
   {
     "Id": 1,
-    "Name": "test module 2",
-    "Url": "http://test.com/",
+    "Name": "Image to 3D",
+    "Url": "http://172.17.0.3:8001/imageTo3D",
     "NeedUploadFile": true,
     "NeedCommand": true
   }

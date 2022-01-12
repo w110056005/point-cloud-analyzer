@@ -75,7 +75,7 @@ namespace point_cloud_analyzer_web.Controllers
                     }
 
                     multipartContent.Add(new StringContent(payload.Command), "command");
-                    client.Timeout = TimeSpan.FromSeconds(30);
+                    client.Timeout = TimeSpan.FromSeconds(300);
                     HttpResponseMessage response = await client.PostAsync(payload.Url, multipartContent);
                     response.EnsureSuccessStatusCode();
 
