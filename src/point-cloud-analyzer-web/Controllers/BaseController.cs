@@ -62,6 +62,33 @@ namespace point_cloud_analyzer_web.Controllers
                 }
             }
         }
+        protected async Task<HttpResponseMessage> CallMicroServiceThenRedirect(PayloadModel payload)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var multipartContent = new MultipartFormDataContent();
+                    foreach (var file in payload.Files)
+                    {
+                        multipartContent.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
+                    }
+
+                    multipartContent.Add(new StringContent(payload.Command), "command");
+                    client.Timeout = TimeSpan.FromSeconds(30);
+                    HttpResponseMessage response = await client.PostAsync(payload.Url, multipartContent);
+                    response.EnsureSuccessStatusCode();
+
+                    return response;
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("\nException Caught!");
+                    Console.WriteLine("Message :{0} ", e.Message);
+                    throw;
+                }
+            }
+        }
 
         protected void CopyStream(Stream stream, string destPath)
         {

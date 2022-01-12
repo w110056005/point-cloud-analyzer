@@ -17,7 +17,7 @@ namespace point_cloud_analyzer_web.Controllers
 
         [HttpPost]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Post([FromForm]PayloadModel data)
+        public async Task<IActionResult> Post([FromForm] PayloadModel data)
         {
             var fullFileName = "test.ply";
             var file = CallMicroService(data);
@@ -64,12 +64,12 @@ namespace point_cloud_analyzer_web.Controllers
 
             return Redirect(redirect);
         }
-        
+
         [HttpPost("redirect")]
         [DisableRequestSizeLimit]
-        public IActionResult PostThenRedirect([FromForm]PayloadModel data)
+        public async Task<IActionResult> PostThenRedirect([FromForm] PayloadModel data)
         {
-            var file = CallMicroService(data);
+            await CallMicroServiceThenRedirect(data);
             return Redirect(data.Command);
         }
     }
