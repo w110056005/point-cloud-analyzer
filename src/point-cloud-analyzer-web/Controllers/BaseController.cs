@@ -46,6 +46,7 @@ namespace point_cloud_analyzer_web.Controllers
                         multipartContent.Add(new StreamContent(file.OpenReadStream()), "file", file.FileName);
                     }
 
+                    multipartContent.Add(new StringContent(payload.Command), "command");
                     client.Timeout = TimeSpan.FromSeconds(30);
                     HttpResponseMessage response = await client.PostAsync(payload.Url, multipartContent);
                     response.EnsureSuccessStatusCode();

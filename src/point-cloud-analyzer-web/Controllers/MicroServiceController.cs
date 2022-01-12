@@ -64,5 +64,13 @@ namespace point_cloud_analyzer_web.Controllers
 
             return Redirect(redirect);
         }
+        
+        [HttpPost("redirect")]
+        [DisableRequestSizeLimit]
+        public IActionResult PostThenRedirect([FromForm]PayloadModel data)
+        {
+            var file = CallMicroService(data);
+            return Redirect(data.Command);
+        }
     }
 }
