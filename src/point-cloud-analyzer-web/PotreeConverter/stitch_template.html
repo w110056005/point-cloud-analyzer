@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Potree Viewer</title>
+
+	<link rel="stylesheet" type="text/css" href="../build/potree/potree.css">
+	<link rel="stylesheet" type="text/css" href="../lib/jquery-ui/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="../lib/openlayers3/ol.css">
+	<link rel="stylesheet" type="text/css" href="../lib/spectrum/spectrum.css">
+	<link rel="stylesheet" type="text/css" href="../lib/jstree/themes/mixed/style.css">
+</head>
+
+<body>
+	<script src="../lib/jquery/jquery-3.1.1.min.js"></script>
+	<script src="../lib/spectrum/spectrum.js"></script>
+	<script src="../lib/jquery-ui/jquery-ui.min.js"></script>
+
+
+	<script src="../lib/other/BinaryHeap.js"></script>
+	<script src="../lib/tween/tween.min.js"></script>
+	<script src="../lib/d3/d3.js"></script>
+	<script src="../lib/proj4/proj4.js"></script>
+	<script src="../lib/openlayers3/ol.js"></script>
+	<script src="../lib/i18next/i18next.js"></script>
+	<script src="../lib/jstree/jstree.js"></script>
+	<script src="../build/potree/potree.js"></script>
+	<script src="../lib/plasio/js/laslaz.js"></script>
+
+	<!-- INCLUDE ADDITIONAL DEPENDENCIES HERE -->
+	<!-- INCLUDE SETTINGS HERE -->
+	<div class="potree_container" style="position: absolute; width: 20%; height: 100%; left: 0px; top: 0px; display: flex; ">
+		<div id="potree_render_area1" style="background-image: url('../build/potree/resources/images/background.jpg');width: 100%;height:100%"></div>
+	</div>
+	<div class="potree_container" style="position: absolute; width: 20%; height: 100%; left: 20%; top: 0px; display: flex; ">
+		<div id="potree_render_area2" style="background-image: url('../build/potree/resources/images/background.jpg');width: 100%;height:100%"></div>
+	</div>
+	<div class="potree_container" style="position: absolute; width: 20%; height: 100%; left: 40%; top: 0%; display: flex; ">
+		<div id="potree_render_area3" style="background-image: url('../build/potree/resources/images/background.jpg');width: 100%;height:100%"></div>
+	</div>	
+	<div class="potree_container" style="position: absolute; width: 20%; height: 100%; left: 60%; top: 0%; display: flex; ">
+		<div id="potree_render_area4" style="background-image: url('../build/potree/resources/images/background.jpg');width: 100%;height:100%"></div>
+	</div>	
+	<div class="potree_container" style="position: absolute; width: 20%; height: 100%; left: 80%; top: 0%; display: flex; ">
+		<div id="potree_render_area5" style="background-image: url('../build/potree/resources/images/background.jpg');width: 100%;height:100%"></div>
+	</div>
+
+	<script type="module">
+
+		import * as THREE from "../lib/three.js/build/three.module.js";
+
+		// Viewer1
+		window.viewer1 = new Potree.Viewer(document.getElementById("potree_render_area1"));
+
+		viewer1.setEDLEnabled(true);
+		viewer1.setFOV(60);
+		viewer1.setPointBudget(1_000_000);
+		viewer1.loadSettingsFromURL();
+
+		viewer1.setDescription("");
+
+		viewer1.loadGUI(() => {
+			viewer1.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
+		});
+
+		Potree.loadPointCloud("[OutputFilePath1]", "lion", function (e) {
+			viewer1.scene.addPointCloud(e.pointcloud);
+
+			let material = e.pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer1.fitToScreen();
+		});
+
+		// Viewer2
+		window.viewer2 = new Potree.Viewer(document.getElementById("potree_render_area2"));
+
+		viewer2.setEDLEnabled(true);
+		viewer2.setFOV(60);
+		viewer2.setPointBudget(1_000_000);
+		viewer2.loadSettingsFromURL();
+
+		viewer2.setDescription("");
+
+		viewer2.loadGUI(() => {
+			viewer2.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
+		});
+
+		Potree.loadPointCloud("[OutputFilePath2]", "lion", function (e) {
+			viewer2.scene.addPointCloud(e.pointcloud);
+
+			let material = e.pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer2.fitToScreen();
+		});
+
+		// Viewer 3
+		window.viewer3 = new Potree.Viewer(document.getElementById("potree_render_area3"));
+
+		viewer3.setEDLEnabled(true);
+		viewer3.setFOV(60);
+		viewer3.setPointBudget(1_000_000);
+		viewer3.loadSettingsFromURL();
+
+		viewer3.setDescription("");
+
+		viewer3.loadGUI(() => {
+			viewer3.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
+		});
+
+		Potree.loadPointCloud("[OutputFilePath3]", "lion", function (e) {
+			viewer3.scene.addPointCloud(e.pointcloud);
+
+			let material = e.pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+			viewer3.fitToScreen();
+		});
+
+		// Viewer 4
+		window.viewer4 = new Potree.Viewer(document.getElementById("potree_render_area4"));
+
+        viewer4.setEDLEnabled(true);
+        viewer4.setFOV(60);
+        viewer4.setPointBudget(1_000_000);
+        viewer4.loadSettingsFromURL();
+
+        viewer4.setDescription("");
+
+        viewer4.loadGUI(() => {
+            viewer4.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
+		});
+
+		Potree.loadPointCloud("[OutputFilePath4]", "lion", function (e) {
+			viewer3.scene.addPointCloud(e.pointcloud);
+
+			let material = e.pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer4.fitToScreen();
+		});
+
+		// Viewer 5
+		window.viewer5 = new Potree.Viewer(document.getElementById("potree_render_area5"));
+
+        viewer5.setEDLEnabled(true);
+        viewer5.setFOV(60);
+        viewer5.setPointBudget(1_000_000);
+        viewer5.loadSettingsFromURL();
+
+        viewer5.setDescription("");
+
+        viewer5.loadGUI(() => {
+            viewer5.setLanguage('zh');
+            $("#menu_appearance").next().show();
+            $("#menu_tools").next().show();
+            $("#menu_scene").next().show();
+		});
+
+		Potree.loadPointCloud("[OutputFilePath5]", "lion", function (e) {
+            viewer5.scene.addPointCloud(e.pointcloud);
+
+			let material = e.pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+            viewer5.fitToScreen();
+		});
+	</script>
+</body>
+</html>

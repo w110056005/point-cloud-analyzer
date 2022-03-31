@@ -55,6 +55,9 @@
     <None Update="PotreeConverter\Linux\PotreeConverter">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="PotreeConverter\stitch_template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="PotreeConverter\registration_template.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
