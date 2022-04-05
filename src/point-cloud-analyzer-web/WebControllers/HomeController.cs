@@ -25,6 +25,7 @@ namespace point_cloud_analyzer_web.WebControllers
             return View();
         }
 
+        [RequestFormLimits(MultipartBodyLengthLimit= Int32.MaxValue)]
         [DisableRequestSizeLimit]
         public async Task<IActionResult> BaseView(IFormFile file)
         {
@@ -210,77 +211,44 @@ namespace point_cloud_analyzer_web.WebControllers
                .ExecuteAsync();
 
             await Cli.Wrap("wine")
-               .WithArguments($"{converterPath} {Path.Combine(root, "upload", file4.FileName)} -o {Path.Combine(root, "wwwroot", "output", $"{file5.FileName.Split('.')[0]}")} --output-format LAZ --overwrite")
+               .WithArguments($"{converterPath} {Path.Combine(root, "upload", file5.FileName)} -o {Path.Combine(root, "wwwroot", "output", $"{file5.FileName.Split('.')[0]}")} --output-format LAZ --overwrite")
                .ExecuteAsync();
 
             string htmlText = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "stitch_template.html"));
 
             htmlText = htmlText.Replace("[OutputFilePath1]", $"{file1.FileName.Split('.')[0]}" + "/cloud.js");
-            htmlText = htmlText.Replace("[OutputFilePath2]", $"{file1.FileName.Split('.')[0]}" + "/cloud.js");
-            htmlText = htmlText.Replace("[OutputFilePath3]", $"{file1.FileName.Split('.')[0]}" + "/cloud.js");
-            htmlText = htmlText.Replace("[OutputFilePath4]", $"{file1.FileName.Split('.')[0]}" + "/cloud.js");
-            htmlText = htmlText.Replace("[OutputFilePath5]", $"{file1.FileName.Split('.')[0]}" + "/cloud.js");
-            System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"stitch") + ".html", htmlText);
+            htmlText = htmlText.Replace("[OutputFilePath2]", $"{file2.FileName.Split('.')[0]}" + "/cloud.js");
+            htmlText = htmlText.Replace("[OutputFilePath3]", $"{file3.FileName.Split('.')[0]}" + "/cloud.js");
+            htmlText = htmlText.Replace("[OutputFilePath4]", $"{file4.FileName.Split('.')[0]}" + "/cloud.js");
+            htmlText = htmlText.Replace("[OutputFilePath5]", $"{file5.FileName.Split('.')[0]}" + "/cloud.js");
+            System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"before_stitch") + ".html", htmlText);
 
 
-            //var f1_path = Path.Combine(root, "upload", file1.FileName);
-            //var f2_path = Path.Combine(root, "upload", file2.FileName);
-            //var file1Name = file1.FileName.Split('.')[0];
-            //var file2Name = file2.FileName.Split('.')[0];
-            //var mergedFile = 
-            //    Path.Combine(root, "upload", $"{file1Name}_{file2Name}.ply");
-            //var script = Path.Combine(root, "Scripts", "open3d_ICP_ori_v2.py");
+            // execute stitching 
+            var f1_path = Path.Combine(root, "upload", file1.FileName);
+            var f2_path = Path.Combine(root, "upload", file2.FileName);
+            var f3_path = Path.Combine(root, "upload", file3.FileName);
+            var f4_path = Path.Combine(root, "upload", file4.FileName);
+            var f5_path = Path.Combine(root, "upload", file5.FileName);
+            var mergedFile =
+                Path.Combine(root, "upload", $"stitch.ply");
+            var script = Path.Combine(root, "Scripts", "stitching", "main.py");
 
-            //await Cli.Wrap("python3")
-            //    .WithArguments($"{script} {f1_path} {f2_path} {mergedFile}")
-            //    .ExecuteAsync();
+            await Cli.Wrap("python3")
+                .WithArguments($"{script} {f1_path} {f2_path} {f3_path} {f4_path} {f5_path} {mergedFile}")
+                .ExecuteAsync();
 
+            var outputPathResult =
+                Path.Combine(root, "wwwroot", "output", $"stitch");
+            await Cli.Wrap("wine")
+                .WithArguments($"{converterPath} {mergedFile} -o {outputPathResult} --output-format LAZ --overwrite")
+                .ExecuteAsync();
 
-           
-            //var outputPathFile1 = 
-            //    Path.Combine(root, "wwwroot", "output", $"{file1Name}");
-            //var outputPathFile2 = 
-            //    Path.Combine(root, "wwwroot", "output", $"{file2Name}");    
-            //var outputPathResult = 
-            //    Path.Combine(root, "wwwroot", "output", $"{file1Name}_{file2Name}");
+            string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
+            text = text.Replace("[OutputFilePath]", "stitch/cloud.js");
+            System.IO.File.WriteAllText(outputPathResult + "after_stitch.html", text);
 
-            //Exec($"chmod +x {converterPath}");
-            //Exec($"chmod +x {mergedFile}");
-
-            //Console.WriteLine(converterPath);
-            //Console.WriteLine(mergedFile);
-            //Console.WriteLine(outputPathResult);
-
-            //if (System.IO.File.Exists(converterPath))
-            //{
-            //    Console.WriteLine("Converter Exists");
-            //}
-
-            //if (System.IO.File.Exists(mergedFile))
-            //{
-            //    Console.WriteLine("upload Exists");
-            //}
-
-            //await Cli.Wrap("wine")
-            //   .WithArguments($"{converterPath} {file1} -o {outputPathFile1} --output-format LAZ --overwrite")
-            //   .ExecuteAsync();
-
-            //await Cli.Wrap("wine")
-            //   .WithArguments($"{converterPath} {file2} -o {outputPathFile2} --output-format LAZ --overwrite")
-            //   .ExecuteAsync();
-
-            //await Cli.Wrap("wine")
-            //    .WithArguments($"{converterPath} {mergedFile} -o {outputPathResult} --output-format LAZ --overwrite")
-            //    .ExecuteAsync();
-
-            //string htmlText = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "registration_template.html"));
-
-            //htmlText = htmlText.Replace("[OutputFilePath1]", $"{file1Name}" + "/cloud.js");
-            //htmlText = htmlText.Replace("[OutputFilePath2]", $"{file2Name}" + "/cloud.js");
-            //htmlText = htmlText.Replace("[OutputFilePath3]", $"{file1Name}_{file2Name}" + "/cloud.js");
-            //System.IO.File.WriteAllText(outputPathResult + ".html", htmlText);
-
-            var redirect = "..\\output\\" + "stitch.html";
+            var redirect = "..\\output\\" + "after_stitch.html";
 
             return Redirect(redirect);
         }

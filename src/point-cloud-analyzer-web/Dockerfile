@@ -37,6 +37,8 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install --upgrade setuptools
 
 # Install Open3D from the pypi repositories
-RUN python3 -m pip install open3d
+# RUN python3 -m pip install open3d
+RUN python3 -m pip install -r ./Scripts/stitching/requirements.txt --ignore-installed
+
 
 ENTRYPOINT ["dotnet", "point-cloud-analyzer-web.dll", "--environment=Development"]
