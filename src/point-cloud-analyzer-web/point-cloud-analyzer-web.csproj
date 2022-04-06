@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Scripts\stitching\registration_result\result\" />
     <Folder Include="wwwroot\build\potree\lazylibs\geopackage\" />
     <Folder Include="wwwroot\build\potree\lazylibs\sql.js\" />
     <Folder Include="wwwroot\build\potree\resources\icons\matcap\" />
@@ -102,7 +103,7 @@
     <None Update="Scripts\stitching\registration_dataset\evaluate_rt.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Scripts\stitching\registration_dataset\point_clouds\476.bin">
+    <None Update="Scripts\stitching\registration_dataset\point_clouds\456.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Scripts\stitching\registration_dataset\point_clouds\643.bin">
