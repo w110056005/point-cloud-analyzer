@@ -147,7 +147,7 @@ def start_rigistration(pcd,R):
 if __name__ == '__main__':
     radius = 0.5
     #step1 Read Point Cloud data
-    input_dir  = "registration_dataset"
+    input_dir  = "/app/Scripts/stitching/registration_dataset"
     registration_results = io.read_registration_results(os.path.join(input_dir,'reg_result.txt')) #读取 reg_result.txt 结果
     ##init output
     df_output = io.init_output()
@@ -168,7 +168,11 @@ if __name__ == '__main__':
     # )
 
     ######寫檔案
-    path = 'registration_result/result/'
+    if not os.path.isdir('/app/Scripts/stitching/registration_result/'):
+        os.mkdir('/app/Scripts/stitching/registration_result/')
+    else:
+        print(".")
+    path = '/app/Scripts/stitching/registration_result/result/'
     if not os.path.isdir(path):
         os.mkdir(path)
     else:
@@ -186,8 +190,8 @@ if __name__ == '__main__':
     file.writerow(['Fit', 'RMSE'])
     f.close()
 
-    pcd_source = io.read_point_cloud_bin('registration_dataset/point_clouds/643.bin')
-    pcd_target = io.read_point_cloud_bin('registration_dataset/point_clouds/456.bin')
+    pcd_source = io.read_point_cloud_bin('/app/Scripts/stitching/registration_dataset/point_clouds/643.bin')
+    pcd_target = io.read_point_cloud_bin('/app/Scripts/stitching/registration_dataset/point_clouds/456.bin')
 
     ##批量读取
     # for i,r  in (
