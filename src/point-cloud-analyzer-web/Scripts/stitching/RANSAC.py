@@ -261,9 +261,9 @@ def DE_match(idx_target,idx_source,
             best_result = best_result if best_result.inlier_rmse < result.inlier_rmse else result
 
             ## write
-            file_name = find_new_file('registration_result/result/')
+            file_name = find_new_file('/app/Scripts/stitching/registration_result/result/')
             print(file_name)
-            f = open('registration_result/result/' + file_name, "a", newline="")
+            f = open('/app/Scripts/stitching/registration_result/result/' + file_name, "a", newline="")
             #file = open('registration_result/result/result_24.csv', "a", newline="")
             file = csv.writer(f)
             file.writerow([best_result.inlier_rmse, best_result.inlier_rmse])

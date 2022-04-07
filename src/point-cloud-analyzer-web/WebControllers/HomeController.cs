@@ -173,6 +173,8 @@ namespace point_cloud_analyzer_web.WebControllers
         [DisableRequestSizeLimit]
         public async Task<IActionResult> DoStitch(IFormFile file1, IFormFile file2, IFormFile file3, IFormFile file4, IFormFile file5)
         {
+            string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+
             if (file1 == null|| file2 == null|| file3 == null|| file4 == null|| file5 == null) {
                 return BadRequest("Please upload five point cloud datasets.");
             }
@@ -221,7 +223,7 @@ namespace point_cloud_analyzer_web.WebControllers
             htmlText = htmlText.Replace("[OutputFilePath3]", $"{file3.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath4]", $"{file4.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath5]", $"{file5.FileName.Split('.')[0]}" + "/cloud.js");
-            System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"before_stitch") + ".html", htmlText);
+            System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"{timestamp}_before_stitch") + ".html", htmlText);
 
 
             // execute stitching 
@@ -231,7 +233,7 @@ namespace point_cloud_analyzer_web.WebControllers
             var f4_path = Path.Combine(root, "upload", file4.FileName);
             var f5_path = Path.Combine(root, "upload", file5.FileName);
             var mergedFile =
-                Path.Combine(root, "upload", $"stitch.ply");
+                Path.Combine(root, "upload", $"{timestamp}_stitch.ply");
             var script = Path.Combine(root, "Scripts", "stitching", "main.py");
 
             await Cli.Wrap("python3")
@@ -239,16 +241,16 @@ namespace point_cloud_analyzer_web.WebControllers
                 .ExecuteAsync();
 
             var outputPathResult =
-                Path.Combine(root, "wwwroot", "output", $"stitch");
+                Path.Combine(root, "wwwroot", "output", $"{timestamp}_stitch");
             await Cli.Wrap("wine")
                 .WithArguments($"{converterPath} {mergedFile} -o {outputPathResult} --output-format LAZ --overwrite")
                 .ExecuteAsync();
 
             string text = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "template.html"));
-            text = text.Replace("[OutputFilePath]", "stitch/cloud.js");
-            System.IO.File.WriteAllText(outputPathResult + "after_stitch.html", text);
+            text = text.Replace("[OutputFilePath]", $"{timestamp}_stitch/cloud.js");
+            System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"{timestamp}_after_stitch") + ".html", text);
 
-            var redirect = "..\\output\\" + "after_stitch.html";
+            var redirect = "..\\output\\" + $"{timestamp}_after_stitch.html";
 
             return Redirect(redirect);
         }

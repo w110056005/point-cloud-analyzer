@@ -2,6 +2,7 @@ import open3d as o3d
 import numpy as np
 import copy
 from  main import custom_draw_geometry_with_rotation
+import sys
 def draw_registration_result(source, target, transformation):
     source_temp = copy.deepcopy(source)
     target_temp = copy.deepcopy(target)
