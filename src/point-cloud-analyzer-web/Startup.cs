@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.OpenApi.Models;
 
 namespace point_cloud_analyzer_web
 {
@@ -26,7 +27,16 @@ namespace point_cloud_analyzer_web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllersWithViews();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Point-cloud API"                    
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +75,14 @@ namespace point_cloud_analyzer_web
             //    .ExceptWhen(ctx => ctx.Connection.RemoteIpAddress.ToString().StartsWith("140"))
             //);
 
+            app.UseCors(options => options.WithOrigins(Configuration.GetValue<string>("Cors:AllowedSite")).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Point-Cloud API V1");
+            });
             app.UseStaticFiles(new StaticFileOptions
             {
                 ServeUnknownFileTypes = true
