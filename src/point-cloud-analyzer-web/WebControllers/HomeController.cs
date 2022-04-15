@@ -223,6 +223,7 @@ namespace point_cloud_analyzer_web.WebControllers
             htmlText = htmlText.Replace("[OutputFilePath3]", $"{file3.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath4]", $"{file4.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath5]", $"{file5.FileName.Split('.')[0]}" + "/cloud.js");
+            htmlText = htmlText.Replace("[WindowOpenUrl]", $"{timestamp}_after_stitch.html");
             System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"{timestamp}_before_stitch") + ".html", htmlText);
 
 
@@ -250,7 +251,7 @@ namespace point_cloud_analyzer_web.WebControllers
             text = text.Replace("[OutputFilePath]", $"{timestamp}_stitch/cloud.js");
             System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"{timestamp}_after_stitch") + ".html", text);
 
-            var redirect = "..\\output\\" + $"{timestamp}_after_stitch.html";
+            var redirect = "..\\output\\" + $"{timestamp}_before_stitch.html";
 
             return Redirect(redirect);
         }
