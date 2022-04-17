@@ -112,9 +112,11 @@ def global_rigistration(pcds):
 
     o3d.io.write_point_cloud('stitching_result_2.ply',result_2)
     #拼接第四組
-    result_3 = execute_ransac('stitching_result_2.ply',pcds[4])
+    #result_3 = execute_ransac('stitching_result_2.ply',pcds[4])
 
-    o3d.io.write_point_cloud(sys.argv[6],result_3)
+    #o3d.io.write_point_cloud(sys.argv[6],result_3)
+    o3d.io.write_point_cloud(sys.argv[6],result_2)
         
     
-    return result_3
+    #return result_3
+    return result_2

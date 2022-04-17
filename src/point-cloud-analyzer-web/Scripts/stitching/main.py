@@ -221,9 +221,9 @@ if __name__ == '__main__':
     result_1 = start_rigistration(pcds[1],R)
     R = mesh.get_rotation_matrix_from_xzy((0,5*np.pi/9,0))
     result_2 = start_rigistration(pcds[2],R)
-    R = mesh.get_rotation_matrix_from_xzy((0,5*np.pi/9,0))
+    R = mesh.get_rotation_matrix_from_yxz((0,5*np.pi/9,0))
     result_3 = start_rigistration(pcds[3],R)
-    R = mesh.get_rotation_matrix_from_xyz((0,5*np.pi/9,0))
+    R = mesh.get_rotation_matrix_from_xzy((0,5*np.pi/9,0))
     result_4 = start_rigistration(pcds[4],R)
     
     #畫取新的點雲檔
