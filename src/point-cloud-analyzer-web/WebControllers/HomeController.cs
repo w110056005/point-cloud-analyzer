@@ -180,7 +180,7 @@ namespace point_cloud_analyzer_web.WebControllers
             //}
 
             var root = Directory.GetCurrentDirectory();
-            List<IFormFile> files = new List<IFormFile>() { file1, file2, file3, file4, file5 };
+            List<IFormFile> files = new List<IFormFile>() { file1, file2, file3, file4, file4 };
 
             foreach (var file in files)
             {
@@ -213,7 +213,7 @@ namespace point_cloud_analyzer_web.WebControllers
                .ExecuteAsync();
 
             await Cli.Wrap("wine")
-               .WithArguments($"{converterPath} {Path.Combine(root, "upload", file5.FileName)} -o {Path.Combine(root, "wwwroot", "output", $"{file5.FileName.Split('.')[0]}")} --output-format LAZ --overwrite")
+               .WithArguments($"{converterPath} {Path.Combine(root, "upload", file4.FileName)} -o {Path.Combine(root, "wwwroot", "output", $"{file4.FileName.Split('.')[0]}")} --output-format LAZ --overwrite")
                .ExecuteAsync();
 
             string htmlText = System.IO.File.ReadAllText(Path.Combine(root, "PotreeConverter", "stitch_template.html"));
@@ -222,7 +222,7 @@ namespace point_cloud_analyzer_web.WebControllers
             htmlText = htmlText.Replace("[OutputFilePath2]", $"{file2.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath3]", $"{file3.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[OutputFilePath4]", $"{file4.FileName.Split('.')[0]}" + "/cloud.js");
-            htmlText = htmlText.Replace("[OutputFilePath5]", $"{file5.FileName.Split('.')[0]}" + "/cloud.js");
+            htmlText = htmlText.Replace("[OutputFilePath5]", $"{file4.FileName.Split('.')[0]}" + "/cloud.js");
             htmlText = htmlText.Replace("[WindowOpenUrl]", $"{timestamp}_after_stitch.html");
             System.IO.File.WriteAllText(Path.Combine(root, "wwwroot", "output", $"{timestamp}_before_stitch") + ".html", htmlText);
 
@@ -232,7 +232,7 @@ namespace point_cloud_analyzer_web.WebControllers
             var f2_path = Path.Combine(root, "upload", file2.FileName);
             var f3_path = Path.Combine(root, "upload", file3.FileName);
             var f4_path = Path.Combine(root, "upload", file4.FileName);
-            var f5_path = Path.Combine(root, "upload", file5.FileName);
+            var f5_path = Path.Combine(root, "upload", file4.FileName);
             var mergedFile =
                 Path.Combine(root, "upload", $"{timestamp}_stitch.ply");
             var script = Path.Combine(root, "Scripts", "stitching", "main.py");
