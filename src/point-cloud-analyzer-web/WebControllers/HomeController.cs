@@ -175,9 +175,9 @@ namespace point_cloud_analyzer_web.WebControllers
         {
             string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-            if (file1 == null|| file2 == null|| file3 == null|| file4 == null|| file5 == null) {
-                return BadRequest("Please upload five point cloud datasets.");
-            }
+            //if (file1 == null|| file2 == null|| file3 == null|| file4 == null|| file5 == null) {
+            //    return BadRequest("Please upload five point cloud datasets.");
+            //}
 
             var root = Directory.GetCurrentDirectory();
             List<IFormFile> files = new List<IFormFile>() { file1, file2, file3, file4, file5 };
